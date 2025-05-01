@@ -24,10 +24,10 @@ Config.Vehicle = {
 
 -- Locaties voor het ramen wassen
 Config.Locations = {
-    vector3(-56.21, -1754.6, 29.44), 
+    vector3(-56.21, -1754.6, 29.44),
+    vector3(-189.1, -1697.14, 33.17),
+    vector3(6.65, -1607.75, 29.29) 
 
     
     --- add more
 }
-
-
