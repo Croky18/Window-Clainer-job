@@ -1,6 +1,6 @@
 Config = {}
 
-Config.RequiredJob = "police"
+Config.RequiredJob = "cleaner"
 Config.Progressbar = "qs" -- qs of "qb"
 Config.VehicleReturn = {x = -68.93, y = -1837.38, z = 26.88}
 
@@ -27,7 +27,5 @@ Config.Locations = {
     vector3(-56.21, -1754.6, 29.44),
     vector3(-189.1, -1697.14, 33.17),
     vector3(6.65, -1607.75, 29.29) 
-
-    
     --- add more
 }
