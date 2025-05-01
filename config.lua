@@ -1,7 +1,7 @@
 Config = {}
 
 Config.RequiredJob = "cleaner"
-Config.Progressbar = "qs" -- qs of "qb"
+Config.Progressbar = "qb" -- qs of "qb"
 Config.VehicleReturn = {x = -68.93, y = -1837.38, z = 26.88}
 
 -- NPC instellingen
