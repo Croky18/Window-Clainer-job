@@ -16,7 +16,6 @@ CreateThread(function()
     SetEntityInvincible(ped, true)
     SetBlockingOfNonTemporaryEvents(ped, true)
 
-    -- Blip
     local blip = AddBlipForCoord(Config.NPC.coords)
     SetBlipSprite(blip, 280)
     SetBlipDisplay(blip, 4)
@@ -24,37 +23,64 @@ CreateThread(function()
     SetBlipColour(blip, 5)
     SetBlipAsShortRange(blip, true)
     BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString("Window Cleaner Job")
+    AddTextComponentString("Ramen Job Locatie")
     EndTextCommandSetBlipName(blip)
 
-    -- qb-target interacties
-    exports['qb-target']:AddBoxZone("ramenjob_npc", Config.NPC.coords, 2.0, 2.0, {
-        name = "ramenjob_npc",
-        heading = Config.NPC.heading,
-        debugPoly = false,
-        minZ = Config.NPC.coords.z - 1.5,
-        maxZ = Config.NPC.coords.z + 1.5
-    }, {
-        options = {
-            {
-                type = "client",
-                event = "ramenjob:start",
-                icon = "fas fa-broom",
-                label = "Start Job"
-            },
-            {
-                type = "client",
-                event = "ramenjob:stop",
-                icon = "fas fa-times",
-                label = "Stop Job",
-                canInteract = function()
-                    return isWorking
+    local npcCoords = vector3(Config.NPC.coords.x, Config.NPC.coords.y, Config.NPC.coords.z)
+
+    CreateThread(function()
+        while true do
+            Wait(0)
+            local playerPed = PlayerPedId()
+            local playerCoords = GetEntityCoords(playerPed)
+            local distance = #(playerCoords - npcCoords)
+
+            if distance < 2.0 then
+                DrawText3D(npcCoords.x, npcCoords.y, npcCoords.z + 1.0, "[E] Open Menu")
+                if IsControlJustReleased(0, 38) then
+                    lib.registerContext({
+                        id = 'ramen_job_menu',
+                        title = 'Ramen Job Menu',
+                        options = {
+                            {
+                                title = 'Start Job',
+                                description = 'Begin washing windows',
+                                icon = 'broom',
+                                onSelect = function()
+                                    TriggerEvent('ramenjob:start')
+                                end
+                            },
+                            {
+                                title = 'Stop Job',
+                                description = 'Stop your current job',
+                                icon = 'xmark',
+                                disabled = not isWorking,
+                                onSelect = function()
+                                    TriggerEvent('ramenjob:stop')
+                                end
+                            }
+                        }
+                    })
+                    lib.showContext('ramen_job_menu')
                 end
-            }
-        },
-        distance = 2.5
-    })
+            end
+        end
+    end)
 end)
+
+function DrawText3D(x, y, z, text)
+    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
+    if onScreen then
+        SetTextScale(0.35, 0.35)
+        SetTextFont(4)
+        SetTextProportional(1)
+        SetTextColour(255, 255, 255, 215)
+        SetTextEntry("STRING")
+        SetTextCentre(true)
+        AddTextComponentString(text)
+        DrawText(_x, _y)
+    end
+end
 
 RegisterNetEvent("ramenjob:start", function()
     if isWorking then 
