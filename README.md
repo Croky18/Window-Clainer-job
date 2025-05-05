@@ -4,6 +4,11 @@ Deze job laat spelers ramen schoonmaken als onderdeel van een realistische schoo
 
 ---
 
+## ⚠️ Important Notice
+
+- **❌ DO NOT RESELL**  
+  This script is released **for free** to support the FiveM community. **Reselling, reuploading, or distributing this script for commercial purposes is strictly prohibited** without the developer's permission.
+
 ## ⚠️ Belangrijke Informatie
 
 - **Eenvoudig te configureren via `config.lua`**
